@@ -45,7 +45,7 @@ html {
 }
 
 .form-group {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .validation-message {
@@ -61,4 +61,13 @@ html {
   font-size: 14px;
   vertical-align: bottom;
   margin-left: 2px;
+}
+
+.what {
+  grid-column: 2/3;
+}
+
+.img-size{
+  height: 100px;
+  width: auto;
 }
