@@ -4,7 +4,7 @@
     "freshdesk": {
       "location": {
         "ticket_sidebar": {
-          "url": "index.html",
+          "url": "templates/index.html",
           "icon": "styles/images/icon.svg"
         }
       }

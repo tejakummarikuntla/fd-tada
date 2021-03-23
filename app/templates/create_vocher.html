@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script src="https://static.freshdev.io/fdk/2.0/assets/fresh_client.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://static.freshdev.io/fdk/2.0/assets/freshdesk.css">
+    <link rel="stylesheet" type="text/css" href="../styles/style.css">
+    <script
+    type="module"
+    src="https://unpkg.com/@freshworks/crayons/dist/crayons/crayons.esm.js">
+  </script>
+  <script
+    nomodule
+    src="https://unpkg.com/@freshworks/crayons/dist/crayons/crayons.js">
+  </script>
+    <!-- <script src="../js/util.js"></script> -->
+    <script src="../scripts/create_vocher.js"></script>
+  </head>
+  <body>
+    <div>
+        <div class="form-group">
+          <label class="mandatory">Vocher Subject:</label>
+          <input type="email" placeholder="--" id="vocher-subject" class="form-control">
+          <span id="subject-error" class="validation-message"></span>
+        </div>
+        <div class="form-group">
+          <label class="mandatory">Vocher Description:</label>
+          <textarea id="vocher-description" placeholder="--" class="form-control"></textarea>
+          <span id="description-error" class="validation-message"></span>
+        </div>
+        <div class="form-group">
+          <label class="mandatory">Discount value(%):</label>
+          <input type="email" placeholder="--" id="vocher-discount" class="form-control">
+          <span id="contact-error" class="validation-message"></span>
+        </div>
+        <div class="form-group">
+          <label class="mandatory">Validity:</label>
+          <fw-datepicker mode="range"></fw-datepicker>
+          <!-- <input type="datetime-local" id="schedule-time" class="form-control" > -->
+          <!-- <span id="scheduleAt-error" class="validation-message"></span> -->
+        </div>
+        <div class="form-group">
+            <label>Customize voucher manually:</label>
+            <fw-toggle id="vocher-toggle" size="small">Small not selected</fw-toggle><br><br>
+            <input type="email" placeholder="--" id="toggle-input" style = "display: none;"class="form-control">
+        </div>
+        <button class="btn btn-primary " id="create-schedule">Create</button>
+        <button class="btn btn-primary hidden" id="update-schedule">Update</button>
+    </div>
+  </body>
+</html>

@@ -43,3 +43,22 @@ html {
   font-size: 12px;
   font-weight: 500;
 }
+
+.form-group {
+  margin-bottom: 30px;
+}
+
+.validation-message {
+  font-size: 12px;
+  margin-top: 3px;
+  position: absolute;
+  color: #ff5959;
+}
+
+.mandatory::after {
+  content: "*";
+  color: red;
+  font-size: 14px;
+  vertical-align: bottom;
+  margin-left: 2px;
+}
