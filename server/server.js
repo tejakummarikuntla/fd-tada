@@ -16,3 +16,7 @@ exports = {
   }
   
 };
+/**
+ * UI -> Button
+ * Usecase - clicked -> smi -(invoke a function in server.js) -> randomecode -(renderData();)-> UI -> button -(client.interface.something) -> editor
+ */
