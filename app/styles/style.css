@@ -71,3 +71,18 @@ html {
   height: 50px;
   width: auto;
 }
+
+.action-icon {
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 25px;
+}
+
+.create-vocher-logo {
+  content: url('../styles/images/vocher-icon.png');
+  height: 23%;
+}
+
+.icon-text {
+  margin-left: 10px;
+}

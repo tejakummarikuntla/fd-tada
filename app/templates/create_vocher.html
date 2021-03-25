@@ -15,40 +15,43 @@
     <script src="../scripts/create_vocher.js"></script>
   </head>
   <body>
+    <div class="what">
+      <img class="img-size" style="margin-left: 0%;" src="../styles/images/vocher-icon.png" />
+      <h4>Configure</h4>
+      <i>Set your Vocher properties</i>
+    </div>
     <div>
-        <div class="what">
-            <img class="img-size" style="margin-left: 0%;" src="../styles/images/vocher-icon.png" />
-            <h4>Configure</h4>
-            <i>Set your Vocher properties</i>
-          </div>
         <div class="form-group">
           <label class="mandatory">Vocher Subject:</label>
-          <input type="email" placeholder="--" id="vocher-subject" class="form-control">
+          <input type="email" placeholder="--" id="voucher-subject" class="form-control">
           <span id="subject-error" class="validation-message"></span>
         </div>
         <div class="form-group">
           <label class="mandatory">Vocher Description:</label>
-          <textarea id="vocher-description" placeholder="--" class="form-control"></textarea>
+          <textarea id="voucher-description" placeholder="--" class="form-control"></textarea>
           <span id="description-error" class="validation-message"></span>
         </div>
         <div class="form-group">
           <label class="mandatory">Discount value(%):</label>
-          <input type="email" placeholder="--" id="vocher-discount" class="form-control">
-          <span id="contact-error" class="validation-message"></span>
+          <input type="email" placeholder="--" id="voucher-discount" class="form-control">
+          <span id="discount-error" class="validation-message"></span>
         </div>
         <div class="form-group">
           <label class="mandatory">Validity:</label>
-          <fw-datepicker mode="range"></fw-datepicker>
-          <!-- <input type="datetime-local" id="schedule-time" class="form-control" > -->
-          <!-- <span id="scheduleAt-error" class="validation-message"></span> -->
+          <fw-datepicker mode="range" id="voucher-validity"></fw-datepicker>
+          <span id="validity-error" class="validation-message"></span>
         </div>
         <div class="form-group">
-            <label>Customize voucher manually:</label>
-            <fw-toggle id="vocher-toggle" size="small">Small not selected</fw-toggle><br><br>
-            <input type="email" placeholder="--" id="toggle-input" style = "display: none;"class="form-control">
+          <label>Customize voucher manually:</label>
+          <fw-toggle id="vocher-toggle" size="small">Small not selected</fw-toggle><br><br>
+          <input type="email" placeholder="--" id="toggle-input" style = "display: none;"class="form-control">
         </div>
-        <button class="btn btn-primary " id="create-schedule">Create</button>
-        <button class="btn btn-primary hidden" id="update-schedule">Update</button>
+        <button class="btn btn-primary " id="create-voucher">Create</button>
+        <br></br>
+    </div>
+    <div>
+      <label>Use vocher code:</label>
+      <fw-label id="voucher-label" value="" style="display: block;" color="green"></fw-label>
     </div>
   </body>
 </html>

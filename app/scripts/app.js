@@ -23,11 +23,21 @@ function openCreateVocherModal(title, modalData) {
   });
 }
 
+function openListVouchersModal() {
+  client.interface.trigger('showModal', {
+    title: 'List of vouchers created',
+    template: 'list_vouchers.html'
+  });
+}
 function addListeners() {
-  document.getElementById('create-vocher').addEventListener('click', function() {
-    openCreateVocherModal('Create Vocher', {
+  document.getElementById('create-voucher').addEventListener('click', function() {
+    openCreateVocherModal('Create Vocuher', {
       newVocher: true
     });
+  });
+
+  document.getElementById('list-vouchers').addEventListener('click', function() {
+    openListVouchersModal();
   });
 }
 
