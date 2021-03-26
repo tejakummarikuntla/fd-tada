@@ -1,3 +1,5 @@
+const DANGER_NOTIFICATION = 'danger';
+const SUCCESS_NOTIFICATION = 'success';
 const FIELDS_TO_VALIDATE = ['subject', 'description', 'discount', 'validity'];
 
 function getFieldValues() {
@@ -49,6 +51,7 @@ function saveVoucherToDb(subject, description, discount, validity, voucher) {
 }
 
 function addListeners(){
+    var voucherCode = ""
     document.getElementById("vocher-toggle").addEventListener('fwChange', function(){
         displayValue = document.getElementById("custom-voucher").style.display
         if (displayValue == 'block'){
@@ -66,8 +69,9 @@ function addListeners(){
         var vValidity = document.getElementById('voucher-validity').value
         var vCustomVoucher = document.getElementById('custom-voucher').value
         if(vCustomVoucher != ""){
-          document.getElementById('voucher-label').innerText = vCustomVoucher
-          saveVoucherToDb(vSubject, vDescription, vDiscount, vValidity, vCustomVoucher);
+          voucherCode = vCustomVoucher
+          document.getElementById('voucher-label').innerText = voucherCode
+          saveVoucherToDb(vSubject, vDescription, vDiscount, vValidity, voucherCode);
           client.db.get("vouchers").then(function (dbData) {
             console.log(dbData)
           }) 
@@ -76,8 +80,9 @@ function addListeners(){
             function(data) {
               // data is a json object with requestID and response.
               // data.response gives the output sent as the second argument in renderData.
-              document.getElementById('voucher-label').innerText = data.response
-              saveVoucherToDb(vSubject, vDescription, vDiscount, vValidity, data.response[0]);
+              voucherCode = data.response[0]
+              document.getElementById('voucher-label').innerText = voucherCode
+              saveVoucherToDb(vSubject, vDescription, vDiscount, vValidity, voucherCode);
               client.db.get("vouchers").then(function (dbData) {
                 console.log(dbData)
               })
@@ -93,6 +98,22 @@ function addListeners(){
             document.getElementById('voucher-component').classList.remove('hidden')
             clearFields();
           }
+    })
+
+    document.getElementById('copy-button').addEventListener('click', function() {
+      copyToClipboard(voucherCode)
+      sendNotification(SUCCESS_NOTIFICATION, 'Copied to Clipboard');
+      client.instance.close();
+    })
+
+    document.getElementById('paste-editor').addEventListener('click', function() {
+      client.interface.trigger(
+        "setValue", {id: "editor", text: "Text to be inserted"})
+        .then(function(data) {
+        // data - success message
+        }).catch(function(error) {
+        // error - error object
+        });
     })
 }
 
