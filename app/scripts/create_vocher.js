@@ -9,6 +9,19 @@ function getFieldValues() {
     };
   }
 
+function clearFields() {
+  document.getElementById('voucher-subject').value = ""
+  document.getElementById('voucher-description').value = ""
+  document.getElementById('voucher-discount').value = ""
+  document.getElementById('voucher-validity').value = ""
+  document.getElementById('custom-voucher').value = ""
+
+  var errorPrompts = document.getElementsByClassName('validation-message');
+  for(var i=0; i< errorPrompts.length; i++){
+    errorPrompts[i].innerText = "";
+  }
+}
+
 function validateFields() {
     document.querySelectorAll('.validation-message').innerHTML = '';
     var voucherData = getFieldValues();
@@ -19,39 +32,55 @@ function validateFields() {
         document.getElementById(`${field}-error`).innerHTML = 'Please fill this required field';
         isValid = false;
       }
+       else {
+        document.getElementById(`${field}-error`).innerText = ""
+      }
     }
-  
-    if ((new Date(voucherData.validity) - new Date(Date.now())) / 1000 / 60 < 10) {
-      q('#validity-error').innerHTML = 'Please provide viable validity';
-      isValid = false;
-    }
-  
-    // if (voucherData['contact'] && !validEmail(scheduleData['contact'])) {
-    //   q('#contact-error').innerHTML = 'Please enter a valid email';
-    //   isValid = false;
-    // }
     return isValid;
+}
+
+function saveVoucherToDb(subject, description, discount, validity, voucher) {
+  let createObject = new Object();
+  let id = generateUuid();
+  createObject[`voucher_${id}`] = {subject, description, discount, validity, voucher};
+  client.db.update("vouchers", "set", createObject), function(error) {
+    console.log(error);
+  }
 }
 
 function addListeners(){
     document.getElementById("vocher-toggle").addEventListener('fwChange', function(){
-        displayValue = document.getElementById("toggle-input").style.display
+        displayValue = document.getElementById("custom-voucher").style.display
         if (displayValue == 'block'){
-        document.getElementById("toggle-input").style.display = "none"
+        document.getElementById("custom-voucher").style.display = "none"
         } else {
-            document.getElementById("toggle-input").style.display = "block"
+            document.getElementById("custom-voucher").style.display = "block"
         }
     })
 
     document.getElementById('create-voucher').addEventListener('click', function(){
-        if(validateFields()){
+      if(validateFields()){
+        var vSubject = document.getElementById('voucher-subject').value
+        var vDescription = document.getElementById('voucher-description').value
+        var vDiscount = Number(document.getElementById('voucher-discount').value)
+        var vValidity = document.getElementById('voucher-validity').value
+        var vCustomVoucher = document.getElementById('custom-voucher').value
+        if(vCustomVoucher != ""){
+          document.getElementById('voucher-label').innerText = vCustomVoucher
+          saveVoucherToDb(vSubject, vDescription, vDiscount, vValidity, vCustomVoucher);
+          client.db.get("vouchers").then(function (dbData) {
+            console.log(dbData)
+          }) 
+        } else {
         client.request.invoke('generateVoucher', {}).then(
             function(data) {
               // data is a json object with requestID and response.
               // data.response gives the output sent as the second argument in renderData.
-              document.getElementById('voucher-label').value = data.response
-              console.log("server method Request ID is: " + data.requestID);
-              console.log("server method response is: " + data.response);
+              document.getElementById('voucher-label').innerText = data.response
+              saveVoucherToDb(vSubject, vDescription, vDiscount, vValidity, data.response[0]);
+              client.db.get("vouchers").then(function (dbData) {
+                console.log(dbData)
+              })
             },
             function(err) {
               // err is a json object with requestID, status and message.
@@ -59,7 +88,11 @@ function addListeners(){
               console.log("error status: " + err.status);
               console.log("error message: " + err.message);
             });
-        }
+          }
+
+            document.getElementById('voucher-component').classList.remove('hidden')
+            clearFields();
+          }
     })
 }
 

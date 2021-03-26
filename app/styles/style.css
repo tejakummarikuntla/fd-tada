@@ -33,7 +33,7 @@ html {
   text-align: center;
 }
 
-.button-middle {
+.button-middle, .align-middle {
   width: 40%;
   margin-left: 30%;
   margin-right: 30%
@@ -85,4 +85,18 @@ html {
 
 .icon-text {
   margin-left: 10px;
+}
+
+.yellow-light-card {
+  background-color: #fbf7dc;
+  padding: 7px 15px;
+  border-radius: 2px;
+  width: 40%;
+}
+
+.col-xs-2, .col-xs-5 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
