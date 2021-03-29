@@ -37,13 +37,40 @@ function addListeners() {
   });
 
   document.getElementById('list-vouchers').addEventListener('click', function() {
-    openListVouchersModal();
+    // openListVouchersModal();
+    dispVouchers();
   });
 }
 
 // document.addEventListener('DOMContentLoaded', function() {
 //   addListeners();
 // })
+
+function dispVouchers() {
+  client.db.get("vouchers").then(function (dbData) {
+    let keysArr = Object.keys(dbData).reverse();
+    keysArr = keysArr.slice(0, 5);
+    let vou = [];
+    keysArr.forEach((element) => {
+      vou.push(`<div class="lookup">
+      <label class="tada-app-label text--xsmall lookup-body">Voucher Subject</label>
+      <p class="lookup-body">${dbData[element].subject}</p>
+      <label class="tada-app-label text--xsmall lookup-body">Voucher Descriptioon </label>
+      <p class="lookup-body">${dbData[element].description}</p>
+      <label class="tada-app-label text--xsmall lookup-body">Discount(%)</label>
+      <p class="lookup-body">${dbData[element].discount}</p>
+      <label class="tada-app-label text--xsmall lookup-body">Vouchere Code</label>
+      <fw-label class="lookup-body" value="${dbData[element].voucher}" color="green"></fw-label>
+    </div>`);
+    });
+    document.querySelector("#values").innerHTML = vou.join(
+      ""
+    );
+  }),
+    function (error) {
+      console.error(error);
+    };
+}
 
 function onAppActivate() {
   var textElement = document.getElementById('apptext');
